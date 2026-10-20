@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active == true;
+    }
+
+    // Public projections contain only roster names and aggregate accounting totals.
+    match /publicPlayers/{playerId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /publicSummary/{summaryId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Full player records, notes, fine history and payment history are admin-only.
+    match /players/{playerId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    match /fines/{fineId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    match /payments/{paymentId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    match /auditLogs/{logId} {
+      allow read, create: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    // Admin membership is provisioned out of band (Firebase Console/Admin SDK).
+    match /admins/{uid} {
+      allow read: if isAdmin() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
