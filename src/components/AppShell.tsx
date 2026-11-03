@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { firebaseReady } from '../lib/firebase';
 import { useToast } from '../contexts/ToastContext';
 import { FineForm } from '../pages/Fines';
+import { isAdminApp } from '../constants/appMode';
 
 const items = [
   { to: '/', label: 'Situazione', icon: Home, public: true },
@@ -40,6 +41,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     window.addEventListener('online', onOnline); window.addEventListener('offline', onOffline);
     return () => { window.removeEventListener('online', onOnline); window.removeEventListener('offline', onOffline); };
   }, []);
+  if (isAdminApp && !isAdmin) return <div className="admin-auth-shell"><header className="admin-auth-header"><span className="brand-mark">LV</span><span><strong>LECCE VOLLEY</strong><small>AREA AMMINISTRATORE · 26/27</small></span></header><main className="admin-auth-main">{children}</main></div>;
   return <div className="app-shell">
     <aside className="sidebar">
       <NavLink to="/" className="brand"><span className="brand-mark">LV</span><span><strong>LECCE VOLLEY</strong><small>GESTIONE MULTE · 26/27</small></span></NavLink>

@@ -1,6 +1,6 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 const env = import.meta.env;
 const required = [
@@ -28,6 +28,17 @@ export const db = firebaseApp ? getFirestore(firebaseApp) : null;
 const configuredAdmins = (env.VITE_ADMIN_UIDS ?? '').split(',').map((uid: string) => uid.trim()).filter(Boolean);
 export function isConfiguredAdmin(uid: string | undefined): boolean {
   return !!uid && configuredAdmins.includes(uid);
+}
+
+export async function hasActiveAdminDocument(uid: string): Promise<boolean> {
+  if (!db || !uid) return false;
+  try {
+    const snapshot = await getDoc(doc(db, 'admins', uid));
+    return snapshot.exists() && snapshot.data().active === true;
+  } catch {
+    // Missing, inactive, or unreadable admin documents must fail closed.
+    return false;
+  }
 }
 
 export function requireDb() {

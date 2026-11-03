@@ -366,6 +366,12 @@ input[type="checkbox"] { width: 15px; height: 15px; accent-color: #478b41; }
 .season-status { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 11px; border-radius: 99px; padding: 7px 9px; background: var(--green-soft); color: var(--green-dark); font-size: 9px; font-weight: 670; }
 .season-settings > small { display: block; color: var(--muted); font-size: 9px; }
 .admin-note { margin-top: 13px; }
+.admin-auth-shell { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
+.admin-auth-header { display: flex; align-items: center; gap: 10px; width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 22px 0 12px; color: var(--ink); }
+.admin-auth-header > span:last-child { display: flex; flex-direction: column; gap: 3px; }
+.admin-auth-header strong { font-size: 11px; letter-spacing: .08em; }
+.admin-auth-header small { color: var(--muted); font-size: 8px; letter-spacing: .12em; }
+.admin-auth-main { width: min(1080px, calc(100% - 32px)); flex: 1; margin: 0 auto; }
 .login-wrap { max-width: 460px; margin: 5vh auto 30px; }
 .login-back { margin-bottom: 15px; }
 .login-back a { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 10px; }
@@ -376,6 +382,13 @@ input[type="checkbox"] { width: 15px; height: 15px; accent-color: #478b41; }
 .login-submit { width: 100%; margin-top: 2px; }
 .login-footnote { display: block; margin-top: 14px; color: var(--muted); font-size: 9px; line-height: 1.5; text-align: center; }
 .login-warning { margin: 0 0 14px; padding: 10px; border: 1px solid #e8d4ad; border-radius: 7px; color: #806430; background: #fff8e9; font-size: 9px; line-height: 1.5; }
+.mode-error-page { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: var(--bg); }
+.mode-error-card { width: min(520px, 100%); padding: 30px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
+.mode-error-card .brand-mark { display: grid; place-items: center; margin-bottom: 20px; }
+.mode-error-card h1 { margin: 8px 0 10px; font-size: 25px; letter-spacing: -.04em; }
+.mode-error-card p { margin: 0 0 15px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.mode-error-card small { display: block; color: var(--muted); font-size: 9px; line-height: 1.6; }
+.mode-error-value { margin-bottom: 15px; padding: 10px 12px; border-radius: 8px; color: var(--red); background: var(--red-soft); font-size: 10px; }
 .toast-stack { position: fixed; z-index: 120; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
 .toast { min-width: 260px; max-width: min(420px, calc(100vw - 32px)); display: flex; align-items: center; gap: 9px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--ink); box-shadow: 0 9px 30px rgba(0,0,0,.12); font-size: 10px; animation: toast-in .18s ease-out; }
 .toast-success > svg:first-child { color: var(--green); }
